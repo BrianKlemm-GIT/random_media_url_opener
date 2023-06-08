@@ -42,6 +42,7 @@ def incorrect_selection():
     user_choice = input("Would you like to try once more? Y/N").lower()
     return user_choice == 'y'
 
+
 menu = {
     'chill': play_chill,
     'high energy': play_high_energy,
