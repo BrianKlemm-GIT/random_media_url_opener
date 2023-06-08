@@ -8,9 +8,11 @@ with open('urls.json', 'r') as file:
 chillVideos = urls['chillVideos']
 highEnergyVideos = urls['highEnergyVideos']
 
+
 def play_chill():
     video = random.choice(chillVideos)
     webbrowser.open(video, new=1)
+
 
 def play_high_energy():
     video = random.choice(highEnergyVideos)
@@ -18,12 +20,15 @@ def play_high_energy():
 
 
 def add_url():
-    user_choice = input("Which playlist would you like to add a url to? Chill or High Energy").lower()
-    new_url = input("What is the url?")
-    if user_choice == "chill":
+    user_choice = input("Which playlist would you like to add a url to? Chill or High Energy? if you want to"
+                        " exit type 3 or Exit").lower()
+    new_url = input("What is the url?").lower()
+    if user_choice == "chill" or '1':
         chillVideos.append(new_url)
-    elif user_choice == "high energy":
+    elif user_choice == "high energy" or '2':
         highEnergyVideos.append(new_url)
+    elif user_choice == "Exit" or '3':
+        return
     else:
         print("You have selected incorrectly.")
         return
@@ -33,7 +38,6 @@ def add_url():
             'chillVideos': chillVideos,
             'highEnergyVideos': highEnergyVideos,
         }, file)
-
     return True
 
 
@@ -43,11 +47,15 @@ def incorrect_selection():
     return user_choice == 'y'
 
 
-menu = {
+main_menu = {
+    '1': play_chill,
     'chill': play_chill,
+    '2': play_high_energy,
     'high energy': play_high_energy,
+    '3': add_url,
     'add url' : add_url,
-    'exit': lambda: False,  # Return False to stop the loop
+    '4': lambda: False,
+    'exit': lambda: False
 }
 
 keep_going = True
@@ -55,5 +63,5 @@ keep_going = True
 while keep_going:
     choice = input("--Main Menu--\n"
                    "The choices are as follows:\n 1. Chill\n 2. High Energy\n 3. Add URL\n 4.Exit\n").lower()
-    action = menu.get(choice, incorrect_selection)
+    action = main_menu.get(choice, incorrect_selection)
     keep_going = action()
