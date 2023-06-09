@@ -1,10 +1,1 @@
-[
-    {
-        "name": "Chill",
-        "urls": ["https://www.youtube.com/watch?v=F0Jk80wDw2w&t=2s", "https://www.youtube.com/watch?v=hh6fF69S_tk", "https://www.youtube.com/watch?v=WPv7ip-SgQU&t=1117s", "https://www.youtube.com/watch?v=4FhsjQ2xess&t=52s"]
-    },
-    {
-        "name": "High Energy",
-        "urls": ["https://www.youtube.com/watch?v=ROcups0YaHE&t=1271s", "https://www.youtube.com/watch?v=D1zR9DkYgu4"]
-    }
-]
+[{"name": "Chill", "urls": ["https://www.youtube.com/watch?v=F0Jk80wDw2w&t=2s", "https://www.youtube.com/watch?v=hh6fF69S_tk", "https://www.youtube.com/watch?v=WPv7ip-SgQU&t=1117s", "https://www.youtube.com/watch?v=4FhsjQ2xess&t=52s", "https://www.youtube.com/watch?v=KemRxx-DrQg"]}, {"name": "High Energy", "urls": ["https://www.youtube.com/watch?v=ROcups0YaHE&t=1271s", "https://www.youtube.com/watch?v=D1zR9DkYgu4"]}]

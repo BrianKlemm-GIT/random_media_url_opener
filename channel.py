@@ -3,23 +3,26 @@ import webbrowser
 
 
 class Channel:
-    def __init__(self, type, url):
+    def __init__(self, type, urls):
         self.type = type
-        self.url = url
+        self.urls = urls
 
-    def add_url(self):
-        new_url = input("Enter the full URL you would like to add.")
-        self.url.append(new_url)
+    def add_url_direct(self, url):
+        self.urls.append(url)
 
     def remove_url(self):
         remove_url = input("Enter the full URL you would like to remove.")
-        self.url.remove(remove_url)
+        self.urls.remove(remove_url)
 
     def play_media(self):
-        video = random.choice(self.url)
+        video = random.choice(self.urls)
         webbrowser.open(video, new=1)
 
     def display_urls(self):
-        print(self.url)
+        print(self.urls)
+
+    def __str__(self):
+        return self.type
+
 
 

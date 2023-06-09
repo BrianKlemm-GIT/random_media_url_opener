@@ -17,7 +17,7 @@ def load_channels():
 def save_channels():
     data_to_save = []
     for ch in channels:
-        data_to_save.append({'name': ch.type, 'urls': ch.url})
+        data_to_save.append({'name': ch.type, 'urls': ch.urls})
 
     with open('urls.json', 'w') as file:
         json.dump(data_to_save, file)
