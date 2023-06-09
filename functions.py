@@ -40,7 +40,7 @@ def delete_channel():
             if ch.type.lower() == name.lower():
                 channels.remove(ch)
                 save_channels()
-                return
+                return True
         print("No such channel found.")
     return True
 
@@ -63,7 +63,7 @@ def add_url():
         if ch.type.lower() == channel_name:
             ch.add_url_direct(new_url)
             save_channels()  # Remember to save changes
-            return
+            return True
     print("No such channel found.")
     return True
 
