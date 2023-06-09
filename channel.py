@@ -3,8 +3,8 @@ import webbrowser
 
 
 class Channel:
-    def __init__(self, type, urls):
-        self.type = type
+    def __init__(self, title, urls):
+        self.title = title
         self.urls = urls
 
     def add_url_direct(self, url):
@@ -22,7 +22,7 @@ class Channel:
         print(self.urls)
 
     def __str__(self):
-        return self.type
+        return self.title
 
 
 
