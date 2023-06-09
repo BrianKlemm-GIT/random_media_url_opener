@@ -3,6 +3,7 @@ import json
 
 channels = []
 
+
 def load_channels():
     global channels
     with open('urls.json', 'r') as file:
