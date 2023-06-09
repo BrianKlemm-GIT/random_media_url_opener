@@ -28,6 +28,7 @@ def add_channel():
     new_channel = channel.Channel(name, [])
     channels.append(new_channel)
     save_channels()
+    return True
 
 
 def delete_channel():
@@ -41,6 +42,7 @@ def delete_channel():
                 save_channels()
                 return
         print("No such channel found.")
+    return True
 
 
 def play_channel():
@@ -48,8 +50,9 @@ def play_channel():
     for ch in channels:
         if ch.type.lower() == channel_name:
             ch.play_media()
-            return
+            return True
     print("No such channel found.")
+    return True
 
 
 def add_url():
@@ -62,6 +65,7 @@ def add_url():
             save_channels()  # Remember to save changes
             return
     print("No such channel found.")
+    return True
 
 
 def incorrect_selection():
