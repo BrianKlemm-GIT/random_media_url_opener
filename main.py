@@ -1,44 +1,67 @@
-import webbrowser
-import random
 import json
+import channel
 
-with open('urls.json', 'r') as file:
-    urls = json.load(file)
-
-chillVideos = urls['chillVideos']
-highEnergyVideos = urls['highEnergyVideos']
+channels = []
 
 
-def play_chill():
-    video = random.choice(chillVideos)
-    webbrowser.open(video, new=1)
+def load_channels():
+    global channels
+    with open('urls.json', 'r') as file:
+        data = json.load(file)
+
+    for channel_data in data:
+        new_channel = channel.Channel(channel_data['name'], channel_data['urls'])
+        channels.append(new_channel)
 
 
-def play_high_energy():
-    video = random.choice(highEnergyVideos)
-    webbrowser.open(video, new=1)
+def save_channels():
+    data_to_save = []
+    for ch in channels:
+        data_to_save.append({'name': ch.type, 'urls': ch.url})
+
+    with open('urls.json', 'w') as file:
+        json.dump(data_to_save, file)
+
+
+def add_channel():
+    name = input("Enter the name of the new channel: ")
+    new_channel = channel.Channel(name, [])
+    channels.append(new_channel)
+    save_channels()
+
+
+def delete_channel():
+    name = input("Enter the name of the channel to delete: ")
+    user_choice = input(f"Are you sure you want to delete channel {name}? \n WARNING!! You cannot undo this! "
+                        f"Y/N").lower()
+    if user_choice == 'y':
+        for ch in channels:
+            if ch.type.lower() == name.lower():
+                channels.remove(ch)
+                save_channels()
+                return
+        print("No such channel found.")
+
+
+def play_channel():
+    channel_name = input("Enter the name of the channel you want to play: ").lower()
+    for ch in channels:
+        if ch.type.lower() == channel_name:
+            ch.play_media()
+            return
+    print("No such channel found.")
 
 
 def add_url():
-    user_choice = input("Which playlist would you like to add a url to? Chill or High Energy? if you want to"
-                        " exit type 3 or Exit").lower()
-    new_url = input("What is the url?").lower()
-    if user_choice == "chill" or '1':
-        chillVideos.append(new_url)
-    elif user_choice == "high energy" or '2':
-        highEnergyVideos.append(new_url)
-    elif user_choice == "Exit" or '3':
-        return
-    else:
-        print("You have selected incorrectly.")
-        return
+    channel_name = input("Which channel would you like to add a URL to?").lower()
+    new_url = input("What is the URL?")
 
-    with open('urls.json', 'w') as file:
-        json.dump({
-            'chillVideos': chillVideos,
-            'highEnergyVideos': highEnergyVideos,
-        }, file)
-    return True
+    for ch in channels:
+        if ch.type.lower() == channel_name:
+            ch.add_url_direct(new_url)
+            save_channels()  # Remember to save changes
+            return
+    print("No such channel found.")
 
 
 def incorrect_selection():
@@ -48,20 +71,26 @@ def incorrect_selection():
 
 
 main_menu = {
-    '1': play_chill,
-    'chill': play_chill,
-    '2': play_high_energy,
-    'high energy': play_high_energy,
-    '3': add_url,
-    'add url' : add_url,
-    '4': lambda: False,
+    '1': play_channel,
+    'play': play_channel,
+    '2': add_url,
+    'add url': add_url,
+    '3': add_channel,
+    'add channel': add_channel,
+    '4': delete_channel,
+    'delete channel': delete_channel,
+    '5': lambda: False,
     'exit': lambda: False
 }
 
 keep_going = True
 
+# Load the channels when the program starts
+load_channels()
+
 while keep_going:
     choice = input("--Main Menu--\n"
-                   "The choices are as follows:\n 1. Chill\n 2. High Energy\n 3. Add URL\n 4.Exit\n").lower()
+                   "The choices are as follows:\n 1. Play a Channel\n 2. Add URL to a Channel\n 3. Add Channel\n "
+                   "4. Delete Channel\n 5. Exit\n").lower()
     action = main_menu.get(choice, incorrect_selection)
     keep_going = action()
