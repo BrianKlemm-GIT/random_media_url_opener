@@ -17,7 +17,7 @@ def load_channels():
 def save_channels():
     data_to_save = []
     for ch in channels:
-        data_to_save.append({'name': ch.type, 'urls': ch.urls})
+        data_to_save.append({'name': ch.title, 'urls': ch.urls})
 
     with open('urls.json', 'w') as file:
         json.dump(data_to_save, file)
@@ -37,7 +37,7 @@ def delete_channel():
                         f"Y/N").lower()
     if user_choice == 'y':
         for ch in channels:
-            if ch.type.lower() == name.lower():
+            if ch.title.lower() == name.lower():
                 channels.remove(ch)
                 save_channels()
                 return True
@@ -48,7 +48,7 @@ def delete_channel():
 def play_channel():
     channel_name = input("Enter the name of the channel you want to play: ").lower()
     for ch in channels:
-        if ch.type.lower() == channel_name:
+        if ch.title.lower() == channel_name:
             ch.play_media()
             return True
     print("No such channel found.")
@@ -60,7 +60,7 @@ def add_url():
     new_url = input("What is the URL?")
 
     for ch in channels:
-        if ch.type.lower() == channel_name:
+        if ch.title.lower() == channel_name:
             ch.add_url_direct(new_url)
             save_channels()  # Remember to save changes
             return True
