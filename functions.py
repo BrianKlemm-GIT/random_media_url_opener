@@ -14,6 +14,14 @@ def load_channels():
         channels.append(new_channel)
 
 
+def view_channels():
+    i = 1
+    for ch in channels:
+        print(f"{i}.{ch}")
+        i += 1
+    return True
+
+
 def save_channels():
     data_to_save = []
     for ch in channels:
@@ -77,12 +85,14 @@ def incorrect_selection():
 main_menu = {
     '1': play_channel,
     'play': play_channel,
-    '2': add_url,
+    '2': view_channels,
+    'view': view_channels,
+    '3': add_url,
     'add url': add_url,
-    '3': add_channel,
+    '4': add_channel,
     'add channel': add_channel,
-    '4': delete_channel,
+    '5': delete_channel,
     'delete channel': delete_channel,
-    '5': lambda: False,
+    '6': lambda: False,
     'exit': lambda: False
 }
